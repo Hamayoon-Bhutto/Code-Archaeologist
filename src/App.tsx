@@ -311,7 +311,10 @@ export default function App() {
               initialSelectedFile={selectedFileToExplore}
             />
           ) : activeScreen === ActiveScreen.Readme ? (
-            <ReadmeScreen theme={theme} />
+            <ReadmeScreen
+              theme={theme}
+              readme={analysisResult?.readme}
+            />
           ) : activeScreen === ActiveScreen.CallGraph ? (
             <CallGraphScreen
               projectId={projectId}
