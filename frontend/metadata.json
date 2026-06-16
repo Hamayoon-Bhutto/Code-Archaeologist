@@ -1,0 +1,6 @@
+{
+  "name": "CodeArchaeologist",
+  "description": "A high-performance static analysis and visualization tool designed to uncover architectural patterns in complex codebases.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
