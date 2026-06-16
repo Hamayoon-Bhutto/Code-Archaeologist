@@ -39,18 +39,18 @@ export default function App() {
 
   const activeProject = analysisResult
     ? {
-        id: 'analyzed-project',
-        name: analysisResult.project_name,
-        branch: 'local-analysis',
-        totalFiles: String(analysisResult.files_analyzed),
-        filesDiff: 'Analyzed',
-        functions: String(analysisResult.functions_found),
-        coverage: `${analysisResult.classes_found} Classes`,
-        complexity: String(analysisResult.imports_found),
-        grade: `${analysisResult.imports_found} Imports`,
-        onboarding: 'Ready',
-        summary: analysisResult.architecture_summary
-      }
+      id: 'analyzed-project',
+      name: analysisResult.project_name,
+      branch: 'local-analysis',
+      totalFiles: String(analysisResult.files_analyzed),
+      filesDiff: 'Analyzed',
+      functions: String(analysisResult.functions_found),
+      coverage: `${analysisResult.classes_found} Classes`,
+      complexity: String(analysisResult.imports_found),
+      grade: `${analysisResult.imports_found} Imports`,
+      onboarding: 'Ready',
+      summary: analysisResult.architecture_summary
+    }
     : PROJECTS.find(p => p.id === projectId) || PROJECTS[0];
 
   useEffect(() => {
@@ -103,11 +103,10 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-screen relative flex flex-col font-sans transition-colors duration-300 ${
-        theme === 'dark'
-          ? 'bg-[#051424] text-[#d4e4fa]'
-          : 'bg-slate-50 text-slate-900'
-      }`}
+      className={`min-h-screen relative flex flex-col font-sans transition-colors duration-300 ${theme === 'dark'
+        ? 'bg-[#051424] text-[#d4e4fa]'
+        : 'bg-slate-50 text-slate-900'
+        }`}
     >
       {activeScreen !== ActiveScreen.Upload && (
         <div className="absolute inset-0 pointer-events-none z-0">
@@ -117,11 +116,10 @@ export default function App() {
       )}
 
       <header
-        className={`fixed top-0 left-0 right-0 h-16 z-40 border-b flex items-center justify-between px-6 backdrop-blur-md transition-colors ${
-          theme === 'dark'
-            ? 'bg-[#051424]/85 border-slate-200/10'
-            : 'bg-white/85 border-slate-200 shadow-xs'
-        }`}
+        className={`fixed top-0 left-0 right-0 h-16 z-40 border-b flex items-center justify-between px-6 backdrop-blur-md transition-colors ${theme === 'dark'
+          ? 'bg-[#051424]/85 border-slate-200/10'
+          : 'bg-white/85 border-slate-200 shadow-xs'
+          }`}
       >
         <div className="flex items-center gap-3">
           <button
@@ -151,11 +149,10 @@ export default function App() {
                 placeholder="Find modules..."
                 value={searchVal}
                 onChange={e => setSearchVal(e.target.value)}
-                className={`py-1.5 px-3 rounded-lg text-xs outline-none border ${
-                  theme === 'dark'
-                    ? 'bg-[#122131] border-[#464555] text-white focus:border-[#8781ff]'
-                    : 'bg-slate-100 border-slate-200 text-slate-800 focus:border-indigo-500'
-                }`}
+                className={`py-1.5 px-3 rounded-lg text-xs outline-none border ${theme === 'dark'
+                  ? 'bg-[#122131] border-[#464555] text-white focus:border-[#8781ff]'
+                  : 'bg-slate-100 border-slate-200 text-slate-800 focus:border-indigo-500'
+                  }`}
               />
 
               <button
@@ -167,9 +164,8 @@ export default function App() {
                     setSearchVal('');
                   }
                 }}
-                className={`p-1.5 rounded-lg text-xs font-bold text-white ${
-                  theme === 'dark' ? 'bg-[#8781ff]' : 'bg-indigo-600'
-                }`}
+                className={`p-1.5 rounded-lg text-xs font-bold text-white ${theme === 'dark' ? 'bg-[#8781ff]' : 'bg-indigo-600'
+                  }`}
               >
                 Go
               </button>
@@ -185,11 +181,10 @@ export default function App() {
 
           <button
             onClick={toggleTheme}
-            className={`p-1.5 rounded-lg border flex items-center justify-center cursor-pointer transition-all active:scale-90 ${
-              theme === 'dark'
-                ? 'bg-[#122131]/60 border-[#464555] text-amber-300'
-                : 'bg-slate-100 border-slate-200 text-indigo-700 shadow-xs'
-            }`}
+            className={`p-1.5 rounded-lg border flex items-center justify-center cursor-pointer transition-all active:scale-90 ${theme === 'dark'
+              ? 'bg-[#122131]/60 border-[#464555] text-amber-300'
+              : 'bg-slate-100 border-slate-200 text-indigo-700 shadow-xs'
+              }`}
           >
             {theme === 'dark' ? (
               <Sun className="w-4 h-4" />
@@ -203,11 +198,10 @@ export default function App() {
       <div className="flex-1 flex pt-16 z-10 w-full relative">
         {activeScreen !== ActiveScreen.Upload && (
           <aside
-            className={`hidden md:flex w-64 border-r flex-col p-5 space-y-5 select-none shrink-0 ${
-              theme === 'dark'
-                ? 'bg-[#0d1c2d]/50 border-slate-200/10'
-                : 'bg-white border-slate-200 shadow-sm'
-            }`}
+            className={`hidden md:flex w-64 border-r flex-col p-5 space-y-5 select-none shrink-0 ${theme === 'dark'
+              ? 'bg-[#0d1c2d]/50 border-slate-200/10'
+              : 'bg-white border-slate-200 shadow-sm'
+              }`}
           >
             <div className="space-y-1">
               <span className="text-[10px] tracking-widest text-slate-500 font-bold uppercase">
@@ -263,15 +257,14 @@ export default function App() {
                   <button
                     key={link.tab}
                     onClick={() => setActiveScreen(link.tab)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-[1.01] ${
-                      isActive
-                        ? theme === 'dark'
-                          ? 'bg-[#8781ff]/20 text-white border border-[#8781ff]/30'
-                          : 'bg-indigo-50 border border-indigo-200/50 text-indigo-700 font-bold'
-                        : theme === 'dark'
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all hover:scale-[1.01] ${isActive
+                      ? theme === 'dark'
+                        ? 'bg-[#8781ff]/20 text-white border border-[#8781ff]/30'
+                        : 'bg-indigo-50 border border-indigo-200/50 text-indigo-700 font-bold'
+                      : theme === 'dark'
                         ? 'text-slate-400 hover:bg-[#122131]/60'
                         : 'text-slate-650 hover:bg-slate-100'
-                    }`}
+                      }`}
                   >
                     {link.icon}
                     <span>{link.label}</span>
@@ -309,6 +302,7 @@ export default function App() {
               projectId={projectId}
               theme={theme}
               initialSelectedFile={selectedFileToExplore}
+              files={analysisResult?.file_summaries}
             />
           ) : activeScreen === ActiveScreen.Readme ? (
             <ReadmeScreen
@@ -319,6 +313,7 @@ export default function App() {
             <CallGraphScreen
               projectId={projectId}
               theme={theme}
+              graphPath={analysisResult?.graph_path}
               onNavigateToFile={handleNavigateToFile}
             />
           ) : activeScreen === ActiveScreen.Architecture ? (
@@ -341,11 +336,10 @@ export default function App() {
           />
 
           <aside
-            className={`w-72 h-full border-r relative z-10 flex flex-col p-6 animate-slide-right ${
-              theme === 'dark'
-                ? 'bg-[#0d1c2d] border-slate-200/10'
-                : 'bg-white border-slate-250 shadow-2xl'
-            }`}
+            className={`w-72 h-full border-r relative z-10 flex flex-col p-6 animate-slide-right ${theme === 'dark'
+              ? 'bg-[#0d1c2d] border-slate-200/10'
+              : 'bg-white border-slate-250 shadow-2xl'
+              }`}
           >
             <button
               onClick={() => setDrawerOpen(false)}
@@ -408,15 +402,14 @@ export default function App() {
                       setActiveScreen(link.tab);
                       setDrawerOpen(false);
                     }}
-                    className={`flex items-center gap-3.5 px-4 py-2.5 rounded-xl text-xs font-semibold cursor-pointer transition-all ${
-                      isActive
-                        ? theme === 'dark'
-                          ? 'bg-[#8781ff]/20 text-white border border-[#8781ff]/30'
-                          : 'bg-indigo-50 border border-indigo-200 text-indigo-700'
-                        : theme === 'dark'
+                    className={`flex items-center gap-3.5 px-4 py-2.5 rounded-xl text-xs font-semibold cursor-pointer transition-all ${isActive
+                      ? theme === 'dark'
+                        ? 'bg-[#8781ff]/20 text-white border border-[#8781ff]/30'
+                        : 'bg-indigo-50 border border-indigo-200 text-indigo-700'
+                      : theme === 'dark'
                         ? 'text-slate-400 hover:bg-[#122131]'
                         : 'text-slate-600 hover:bg-slate-50'
-                    }`}
+                      }`}
                   >
                     {link.icon}
                     <span>{link.label}</span>
@@ -441,11 +434,10 @@ export default function App() {
 
       {activeScreen !== ActiveScreen.Upload && (
         <nav
-          className={`fixed bottom-0 left-0 right-0 h-14 md:hidden border-t z-45 flex justify-around items-center px-4 pb-safe ${
-            theme === 'dark'
-              ? 'bg-[#122131]/95 border-slate-200/10 shadow-[0_-5px_15px_rgba(0,0,0,0.4)] backdrop-blur-md'
-              : 'bg-white border-slate-200 shadow-md backdrop-blur-md'
-          }`}
+          className={`fixed bottom-0 left-0 right-0 h-14 md:hidden border-t z-45 flex justify-around items-center px-4 pb-safe ${theme === 'dark'
+            ? 'bg-[#122131]/95 border-slate-200/10 shadow-[0_-5px_15px_rgba(0,0,0,0.4)] backdrop-blur-md'
+            : 'bg-white border-slate-200 shadow-md backdrop-blur-md'
+            }`}
         >
           {[
             {
@@ -480,11 +472,10 @@ export default function App() {
               <button
                 key={item.screen}
                 onClick={() => setActiveScreen(item.screen)}
-                className={`py-1 px-3.5 rounded-full flex flex-col items-center gap-0.5 cursor-pointer transition-all duration-150 active:scale-90 ${
-                  isActive
-                    ? 'text-[#44f5bd] bg-[#44f5bd]/10 shadow-[0_0_8px_rgba(68,245,189,0.1)] font-bold'
-                    : 'text-slate-550'
-                }`}
+                className={`py-1 px-3.5 rounded-full flex flex-col items-center gap-0.5 cursor-pointer transition-all duration-150 active:scale-90 ${isActive
+                  ? 'text-[#44f5bd] bg-[#44f5bd]/10 shadow-[0_0_8px_rgba(68,245,189,0.1)] font-bold'
+                  : 'text-slate-550'
+                  }`}
               >
                 {item.icon}
               </button>
