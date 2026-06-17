@@ -47,19 +47,27 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
         `[SYSTEM] Selected AI Provider: ${aiProvider === 'gemini' ? 'Gemini API' : 'Local Model'}`,
         '[SYSTEM] Sending request to Flask backend...',
         `[SYSTEM] Waiting for ${aiProvider === 'gemini' ? 'Gemini' : 'Local'} response...`,
-        '[SYSTEM] Scanning files, functions, classes, and imports...'
+        aiProvider === 'gemini' 
+          ? '[SYSTEM] Using Gemini API from backend. If this takes too long, check backend terminal logs.'
+          : '[SYSTEM] Scanning files, functions, classes, and imports...'
       ]);
 
       const result = await analyzeCodebase(folderPath, aiProvider);
 
-      setLogs(prev => [
-        ...prev,
-        '[SYSTEM] Files scanned successfully.',
-        '[SYSTEM] Dependency graph generated.',
-        '[AI] README and architecture summary generated.',
-        `[SYSTEM] Backend returned provider: ${result.ai_provider_used || result.ai_provider || aiProvider}`,
-        `[SYSTEM] Analysis complete in ${result.analysis_time_seconds?.toFixed(1) || '?'}s!`
-      ]);
+      setLogs(prev => {
+        const newLogs = [
+          ...prev,
+          `[SYSTEM] Scanning completed in ${result.scan_time_seconds?.toFixed(1) || '?'}s.`,
+          `[SYSTEM] Files analyzed: ${result.files_analyzed}`,
+          `[SYSTEM] AI Generation completed in ${result.ai_time_seconds?.toFixed(1) || '?'}s.`,
+          `[SYSTEM] Backend returned provider: ${result.ai_provider_used || result.ai_provider || aiProvider}`,
+          `[SYSTEM] Total analysis complete in ${result.analysis_time_seconds?.toFixed(1) || '?'}s!`
+        ];
+        if (result.warnings && result.warnings.length > 0) {
+          result.warnings.forEach(w => newLogs.push(`[WARNING] ${w}`));
+        }
+        return newLogs;
+      });
 
       setAnalyzing(false);
       onAnalyze(result);
@@ -166,6 +174,9 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
                 <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Enter Local Codebase Folder Path
                 </label>
+                <div className={`text-xs font-semibold ${theme === 'dark' ? 'text-amber-400/90' : 'text-amber-600'}`}>
+                  Warning: Do not select the whole project root containing node_modules or .venv. Select only the codebase folder you want to analyze.
+                </div>
 
                 <div className="relative">
                   <input
