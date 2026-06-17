@@ -45,8 +45,8 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
       setLogs([
         '[SYSTEM] Connecting to local Flask backend...',
         `[SYSTEM] Selected AI Provider: ${aiProvider === 'gemini' ? 'Gemini API' : 'Local Model'}`,
-        '[SYSTEM] Sending folder path for analysis...',
-        '[AI] Starting code archaeology...',
+        '[SYSTEM] Sending request to Flask backend...',
+        `[SYSTEM] Waiting for ${aiProvider === 'gemini' ? 'Gemini' : 'Local'} response...`,
         '[SYSTEM] Scanning files, functions, classes, and imports...'
       ]);
 
@@ -57,7 +57,8 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
         '[SYSTEM] Files scanned successfully.',
         '[SYSTEM] Dependency graph generated.',
         '[AI] README and architecture summary generated.',
-        '[SYSTEM] Analysis complete!'
+        `[SYSTEM] Backend returned provider: ${result.ai_provider_used || result.ai_provider || aiProvider}`,
+        `[SYSTEM] Analysis complete in ${result.analysis_time_seconds?.toFixed(1) || '?'}s!`
       ]);
 
       setAnalyzing(false);
