@@ -11,6 +11,7 @@ interface UploadScreenProps {
 
 export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
   const [folderPath, setFolderPath] = useState('');
+  const [aiProvider, setAiProvider] = useState('gemini');
   const [selectedPresetId, setSelectedPresetId] = useState('main-branch');
   const [analyzing, setAnalyzing] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
@@ -43,12 +44,13 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
 
       setLogs([
         '[SYSTEM] Connecting to local Flask backend...',
+        `[SYSTEM] Selected AI Provider: ${aiProvider === 'gemini' ? 'Gemini API' : 'Local Model'}`,
         '[SYSTEM] Sending folder path for analysis...',
-        '[AI] Starting local code archaeology...',
+        '[AI] Starting code archaeology...',
         '[SYSTEM] Scanning files, functions, classes, and imports...'
       ]);
 
-      const result = await analyzeCodebase(folderPath);
+      const result = await analyzeCodebase(folderPath, aiProvider);
 
       setLogs(prev => [
         ...prev,
@@ -100,7 +102,7 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
               </div>
 
               <p className="text-xs text-slate-500 italic text-center">
-                Processing locally through Flask + Ollama.
+                {aiProvider === 'local' ? 'Processing locally through Flask + Ollama.' : 'Processing securely via Gemini API.'}
               </p>
             </div>
           ) : (
@@ -197,6 +199,36 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
                 ))}
               </div>
 
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Select AI Model
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  <div
+                    onClick={() => setAiProvider('local')}
+                    className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                      aiProvider === 'local'
+                        ? theme === 'dark' ? 'bg-[#8781ff]/20 border-[#8781ff]' : 'bg-indigo-50 border-indigo-500'
+                        : theme === 'dark' ? 'bg-[#0d1c2d] border-[#464555] hover:border-[#8781ff]/50' : 'bg-white border-slate-200 hover:border-indigo-300'
+                    }`}
+                  >
+                    <div className={`font-semibold text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Local Model</div>
+                    <div className={`text-xs mt-1 leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Private and offline, but slower</div>
+                  </div>
+                  <div
+                    onClick={() => setAiProvider('gemini')}
+                    className={`p-3 rounded-lg border cursor-pointer transition-all ${
+                      aiProvider === 'gemini'
+                        ? theme === 'dark' ? 'bg-[#8781ff]/20 border-[#8781ff]' : 'bg-indigo-50 border-indigo-500'
+                        : theme === 'dark' ? 'bg-[#0d1c2d] border-[#464555] hover:border-[#8781ff]/50' : 'bg-white border-slate-200 hover:border-indigo-300'
+                    }`}
+                  >
+                    <div className={`font-semibold text-sm ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Gemini API</div>
+                    <div className={`text-xs mt-1 leading-relaxed ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>Cloud-based and faster, requires backend API key</div>
+                  </div>
+                </div>
+              </div>
+
               {error && (
                 <div className="text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg p-3">
                   {error}
@@ -226,7 +258,11 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
                 : 'bg-teal-50 border-teal-100 text-teal-700'
             }`}>
               <Shield className="w-4 h-4" />
-              <span>Runs 100% locally. Your code never leaves your machine.</span>
+              <span>
+                {aiProvider === 'local' 
+                  ? 'Runs 100% locally. Your code never leaves your machine.' 
+                  : 'Code is analyzed using cloud-based Gemini API.'}
+              </span>
             </div>
           </div>
         </div>

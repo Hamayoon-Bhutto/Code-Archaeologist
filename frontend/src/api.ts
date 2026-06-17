@@ -17,14 +17,15 @@ export interface AnalysisResult {
   };
 }
 
-export async function analyzeCodebase(folderPath: string): Promise<AnalysisResult> {
+export async function analyzeCodebase(folderPath: string, aiProvider: string): Promise<AnalysisResult> {
   const response = await fetch("http://localhost:5000/analyze", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      folder_path: folderPath
+      folder_path: folderPath,
+      ai_provider: aiProvider
     })
   });
 
