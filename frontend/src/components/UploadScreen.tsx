@@ -43,13 +43,9 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
       setAnalyzing(true);
 
       setLogs([
-        '[SYSTEM] Connecting to local Flask backend...',
-        `[SYSTEM] Selected AI Provider: ${aiProvider === 'gemini' ? 'Gemini API' : 'Local Model'}`,
+        `[SYSTEM] Selected AI Provider: ${aiProvider === 'gemini' ? 'Gemini API' : 'local'}`,
         '[SYSTEM] Sending request to Flask backend...',
-        `[SYSTEM] Waiting for ${aiProvider === 'gemini' ? 'Gemini' : 'Local'} response...`,
-        aiProvider === 'gemini' 
-          ? '[SYSTEM] Using Gemini API from backend. If this takes too long, check backend terminal logs.'
-          : '[SYSTEM] Scanning files, functions, classes, and imports...'
+        '[SYSTEM] Waiting for backend response...'
       ]);
 
       const result = await analyzeCodebase(folderPath, aiProvider);
@@ -57,11 +53,10 @@ export default function UploadScreen({ onAnalyze, theme }: UploadScreenProps) {
       setLogs(prev => {
         const newLogs = [
           ...prev,
-          `[SYSTEM] Scanning completed in ${result.scan_time_seconds?.toFixed(1) || '?'}s.`,
-          `[SYSTEM] Files analyzed: ${result.files_analyzed}`,
-          `[SYSTEM] AI Generation completed in ${result.ai_time_seconds?.toFixed(1) || '?'}s.`,
-          `[SYSTEM] Backend returned provider: ${result.ai_provider_used || result.ai_provider || aiProvider}`,
-          `[SYSTEM] Total analysis complete in ${result.analysis_time_seconds?.toFixed(1) || '?'}s!`
+          `Scan time: ${result.scan_time_seconds || '?'} seconds`,
+          `AI time: ${result.ai_time_seconds || '?'} seconds`,
+          `Total time: ${result.analysis_time_seconds || '?'} seconds`,
+          `Provider used: ${result.ai_provider_used || aiProvider}`
         ];
         if (result.warnings && result.warnings.length > 0) {
           result.warnings.forEach(w => newLogs.push(`[WARNING] ${w}`));

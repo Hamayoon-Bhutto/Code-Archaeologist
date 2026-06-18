@@ -27,7 +27,7 @@ export interface AnalysisResult {
 
 export async function analyzeCodebase(folderPath: string, aiProvider: string): Promise<AnalysisResult> {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 120000);
+  const timeoutId = setTimeout(() => controller.abort(), 180000);
 
   try {
     const response = await fetch("http://localhost:5000/analyze", {
