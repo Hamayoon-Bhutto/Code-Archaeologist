@@ -8,7 +8,7 @@ A clean, professional monorepo-style structure combining the frontend and backen
 /
 ├── backend/                  # Python Flask Backend
 │   ├── src/                  # Code analysis parser, AI engine, graph builder
-│   ├── outputs/              # Analysis output directory (reports, graphs)
+│   ├── outputs/              # Analysis output directory (reports, graphs, Architecture Summary)
 │   ├── sample_codebase/      # Sample codebase for scanning
 │   ├── tests/                # Unit tests
 │   ├── app.py                # Flask main entrypoint
@@ -23,7 +23,7 @@ A clean, professional monorepo-style structure combining the frontend and backen
 │   └── vite.config.ts        # Vite configuration
 │
 ├── .gitignore                # Workspace gitignore
-├── package.json              # Root script runner for concurrent execution
+├── package.json              # Root script runner for concurrent executionS
 └── README.md                 # This documentation about  project 
 ```
 
@@ -60,7 +60,7 @@ pip install -r backend/requirements.txt
 
 ## Running the Application
 
-To run **both** the frontend and backend simultaneously in development mode, run from the workspace root:
+To run **both** the frontend and backend simultaneously in development mode, run from workspace root:
 ```bash
 npm run dev
 ```
