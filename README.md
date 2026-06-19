@@ -64,7 +64,7 @@ To run **both** the frontend and backend simultaneously in development mode, run
 ```bash
 npm run dev
 ```
-*(Alternatively, you can also run `npm start`)*
+*(you can also run `npm start`)*
 
 This starts:
 - The React Frontend on [http://localhost:3000](http://localhost:3000)
