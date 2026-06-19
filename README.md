@@ -33,7 +33,7 @@ A clean, professional monorepo-style structure combining the frontend and backen
 - **Python**: v3.10+
 - **Ollama** (optional, for local AI functionality)
 
-## Installation
+### Installation
 
 ### 1. Root and Frontend Dependencies
 Install root developer dependencies (like `concurrently` to run both services) and frontend dependencies:
