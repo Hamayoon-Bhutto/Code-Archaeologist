@@ -24,7 +24,7 @@ A clean, professional monorepo-style structure combining the frontend and backen
 │
 ├── .gitignore                # Workspace gitignore
 ├── package.json              # Root script runner for concurrent execution
-└── README.md                 # This documentation
+└── README.md                 # This documentation about  project 
 ```
 
 ## Prerequisites
