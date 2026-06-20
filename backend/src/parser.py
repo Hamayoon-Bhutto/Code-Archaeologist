@@ -30,7 +30,8 @@ def scan_codebase(folder_path: str) -> list[dict[str, Any]]:
 
 
 def _iter_python_files(base_path: Path):
-    """Yield Python files under *base_path* while skipping common noise folders."""
+    """Yield source files under *base_path* while skipping common noise folders."""
+    extensions = {".py", ".js", ".ts", ".java", ".go", ".php", ".rb", ".txt", ".md", ".json", ".html", ".css"}
 
     for root, dirs, files in os.walk(base_path):
         # Mutating ``dirs`` in place tells ``os.walk`` which folders to skip.
@@ -41,12 +42,11 @@ def _iter_python_files(base_path: Path):
         ]
 
         for file_name in files:
-            if file_name.endswith(".py"):
+            if any(file_name.endswith(ext) for ext in extensions):
                 yield Path(root) / file_name
 
-
 def analyze_python_file(file_path: str | Path, base_path: str | Path) -> dict[str, Any]:
-    """Read one Python file and extract imports, classes, functions, and previews."""
+    """Read one source file and extract details."""
 
     file_path = Path(file_path).resolve()
     base_path = Path(base_path).resolve()
@@ -57,11 +57,10 @@ def analyze_python_file(file_path: str | Path, base_path: str | Path) -> dict[st
     collector = _PythonFileCollector()
     parse_error = None
 
-    if content:
+    if content and file_path.suffix == ".py":
         try:
             collector.visit(ast.parse(content))
         except SyntaxError as exc:
-            # Keep scanning reliable: one broken file should not stop the whole run.
             parse_error = _format_syntax_error(exc)
 
     relative_path = _relative_path(file_path, base_path)

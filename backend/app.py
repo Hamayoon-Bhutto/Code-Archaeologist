@@ -12,7 +12,9 @@ from src.report_generator import (
     save_markdown_report,
     save_text_report
 )
+from dotenv import load_dotenv, find_dotenv
 
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 CORS(app)
