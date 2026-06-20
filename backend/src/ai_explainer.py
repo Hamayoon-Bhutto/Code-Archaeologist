@@ -6,19 +6,42 @@ def ask_local_ai(prompt, model="codellama"):
     """
     Sends a prompt to local Ollama model and returns the AI response.
     """
+    try:
+        response = ollama.chat(
+            model=model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+        return response["message"]["content"]
+    except Exception as e:
+        return f"Error connecting to local AI (Ollama): {str(e)}. Make sure Ollama is running and the model '{model}' is installed."
 
-    response = ollama.chat(
-        model=model,
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
-
-    return response["message"]["content"]
-
+def ask_ai(prompt, ai_provider="local"):
+    """
+    Routes the prompt to the selected AI provider.
+    """
+    if ai_provider == "gemini":
+        try:
+            import os
+            import google.generativeai as genai
+            api_key = os.environ.get("GEMINI_API_KEY")
+            if not api_key:
+                return "Error: GEMINI_API_KEY environment variable is not set. Please add it to the backend environment or .env file to use Gemini API."
+            
+            genai.configure(api_key=api_key)
+            model = genai.GenerativeModel('gemini-1.5-pro')
+            response = model.generate_content(prompt)
+            return response.text
+        except ImportError:
+            return "Error: 'google-generativeai' package is not installed. Please run 'pip install google-generativeai'."
+        except Exception as e:
+            return f"Error calling Gemini API: {str(e)}"
+    
+    return ask_local_ai(prompt)
 
 def explain_file(file_info):
     """
@@ -61,9 +84,9 @@ Keep the answer simple and practical.
     return ask_local_ai(prompt)
 
 
-def generate_project_summary(scan_results):
+def generate_project_summary(scan_results, ai_provider="local"):
     """
-    Generates a full project summary using local AI.
+    Generates a full project summary using the selected AI provider.
     """
 
     files_text = ""
@@ -105,15 +128,15 @@ Mention confusing parts, missing documentation, or possible problems.
 Keep the explanation clear and useful.
 """
 
-    return ask_local_ai(prompt)
+    return ask_ai(prompt, ai_provider)
 
 
-def generate_readme(scan_results, project_name="Legacy Code Project"):
+def generate_readme(scan_results, project_name="Legacy Code Project", ai_provider="local"):
     """
-    Generates README content using local AI.
+    Generates README content using the selected AI provider.
     """
 
-    summary = generate_project_summary(scan_results)
+    summary = generate_project_summary(scan_results, ai_provider)
 
     prompt = f"""
 Write a professional README.md for this project.
@@ -138,4 +161,4 @@ Include these sections:
 Make it clean and helpful.
 """
 
-    return ask_local_ai(prompt)
+    return ask_ai(prompt, ai_provider)

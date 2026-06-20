@@ -65,6 +65,8 @@ def analyze_codebase():
     try:
         project_name = os.path.basename(os.path.abspath(folder_path))
 
+        ai_provider = data.get("ai_provider", "local")
+
         print("1. Scanning codebase...")
         scan_results = scan_codebase(folder_path)
 
@@ -76,10 +78,10 @@ def analyze_codebase():
         graph_path = save_graph_html(graph)
 
         print("4. Generating architecture summary with AI...")
-        architecture_summary = generate_project_summary(scan_results)
+        architecture_summary = generate_project_summary(scan_results, ai_provider=ai_provider)
 
         print("5. Generating README with AI...")
-        readme_content = generate_readme(scan_results, project_name)
+        readme_content = generate_readme(scan_results, project_name, ai_provider=ai_provider)
 
         print("6. Creating final report...")
         full_report = create_full_report(
