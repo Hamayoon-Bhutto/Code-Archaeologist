@@ -98,7 +98,7 @@ def analyze_codebase():
         readme_path = save_markdown_report(readme_content)
         summary_path = save_text_report(architecture_summary)
 
-        print("DONE ✅")
+        print("DONE")
 
         return jsonify({
             "project_name": project_name,

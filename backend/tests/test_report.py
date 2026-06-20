@@ -43,7 +43,7 @@ json_path = save_json_report(full_report)
 readme_path = save_markdown_report(readme_content)
 summary_path = save_text_report(architecture_summary)
 
-print("\nDONE ✅")
+print("\nDONE")
 print(f"JSON report saved at: {json_path}")
 print(f"README saved at: {readme_path}")
 print(f"Summary saved at: {summary_path}")
