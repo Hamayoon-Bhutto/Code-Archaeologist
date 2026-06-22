@@ -324,7 +324,7 @@ export default function App() {
               onNavigateToFile={handleNavigateToFile}
             />
           ) : (
-            <ReportsScreen theme={theme} />
+            <ReportsScreen theme={theme} analysisResult={analysisResult} />
           )}
         </div>
       </div>
