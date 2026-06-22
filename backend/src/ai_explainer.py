@@ -33,7 +33,7 @@ def ask_ai(prompt, ai_provider="local"):
                 return "Error: GEMINI_API_KEY environment variable is not set. Please add it to the backend environment or .env file to use Gemini API."
             
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel('gemini-1.5-pro')
+            model = genai.GenerativeModel('gemini-2.5-flash')
             response = model.generate_content(prompt)
             return response.text
         except ImportError:
