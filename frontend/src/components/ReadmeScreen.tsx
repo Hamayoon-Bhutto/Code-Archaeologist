@@ -23,7 +23,7 @@ export default function ReadmeScreen({ theme, readme }: ReadmeScreenProps) {
   const [copied, setCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
-  const [expandedSection, setExpandedSection] = useState<string | null>('full-readme');
+  const [expandedSection, setExpandedSection] = useState<string | null>('Overview-0');
 
   const mdContent =
     readme ||

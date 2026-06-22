@@ -6,12 +6,14 @@ import { GRAPH_NODES } from '../data';
 interface CallGraphScreenProps {
   projectId: string;
   theme: ThemeMode;
+  graphPath?: string;
   onNavigateToFile: (fileName: string) => void;
 }
 
 export default function CallGraphScreen({
   projectId,
   theme,
+  graphPath,
   onNavigateToFile
 }: CallGraphScreenProps) {
   const [scale, setScale] = useState(1);
@@ -43,6 +45,14 @@ export default function CallGraphScreen({
     if (depth === 2) return n.type === 'active' || n.label === 'mainLoop' || n.label === 'validateToken';
     return true; // shows all at higher depth
   });
+
+  if (graphPath) {
+    return (
+      <div className="relative h-[650px] w-full rounded-2xl border overflow-hidden animate-fade-in flex flex-col font-sans bg-white">
+        <iframe src={graphPath} className="w-full h-full border-none" title="Call Graph" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-[650px] w-full rounded-2xl border overflow-hidden animate-fade-in flex flex-col font-sans">

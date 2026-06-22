@@ -320,6 +320,7 @@ export default function App() {
             <ArchitectureScreen
               projectId={projectId}
               theme={theme}
+              architectureSummary={analysisResult?.architecture_summary}
               onNavigateToFile={handleNavigateToFile}
             />
           ) : (
