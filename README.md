@@ -1,5 +1,27 @@
 # Code Archaeologist Workspace
 
+<p align="center">
+  <img src="src/screenshots/1-overview.png" alt="Overview" width="800">
+</p>
+<p align="center">
+  <img src="src/screenshots/2-file-explorer.png" alt="File Explorer" width="800">
+</p>
+<p align="center">
+  <img src="src/screenshots/3-generated-documentation.png" alt="Generated Documentation" width="800">
+</p>
+<p align="center">
+  <img src="src/screenshots/4-call-graph.png" alt="Call Graph" width="800">
+</p>
+<p align="center">
+  <img src="src/screenshots/5-architecture-map.png" alt="Architecture Map" width="800">
+</p>
+<p align="center">
+  <img src="src/screenshots/6-upload-insights.png" alt="Upload Insights" width="800">
+</p>
+<p align="center">
+  <img src="src/screenshots/7-project-reports.png" alt="Project Reports" width="800">
+</p>
+
 A clean, professional monorepo-style structure combining the frontend and backend of the Code Archaeologist project.
 
 ## Directory Structure
