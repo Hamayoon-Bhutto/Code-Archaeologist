@@ -33,11 +33,11 @@
 ## 🌟 Key Features
 
 - **Deep Codebase Scanning:** Instantly scans any local project folder to extract functions, classes, and import statements.
-- **Interactive Dependency Graphs:** Automatically visualizes how different files and modules interact, making it easy to understand complex systems.
+- **Interactive Dependency Graphs:** Automatically visualizes how different files, folders  and modules interact, making it easy to understand complex systems.
 - **AI-Powered Architecture Summaries:** Leverages AI to read the scanned code and explain the architecture, pointing out entry points and potential risks (like circular dependencies).
 - **Automated Documentation Generation:** Automatically writes highly detailed, professional `README.md` files for legacy projects that lack documentation.
 - **Project Reports & Insights:** Exports complete JSON, Markdown, and Text reports of the analysis for offline viewing or integration.
-- **Flexible AI Providers:** Supports both **Local AI** (via Ollama for privacy and offline use) and **Gemini API** for cloud-based, high-speed analysis.
+- **Flexible AI Providers:** Supports both **Local AI** (via Ollama for privacy and offline use) and **Gemini API** for cloud-based and cloud base analysis.
 
 ## 🛠️ Tech Stack
 
