@@ -28,13 +28,9 @@ app = Flask(__name__)
 # Apne Vercel frontend ko backend access ki permission.
 CORS(
     app,
-    resources={
-        r"/*": {
-            "origins": [
-                "https://code-archaeologist-chi.vercel.app",
-            ]
-        }
-    },
+    resources={r"/*": {"origins": "*"}},
+    methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 
